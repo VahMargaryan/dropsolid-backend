@@ -1,0 +1,10 @@
+services:
+  dependency_injection_exercise.photo_service:
+    class: Drupal\dependency_injection_exercise\Services\PhotoService
+    arguments: ['@http_client', '@logger.factory']
+
+  dependency_injection_exercise.language_manager:
+    class: Drupal\dependency_injection_exercise\LanguageManager
+    decorates: language_manager
+    decoration_priority: 100
+    arguments: ['@language.default', '@dependency_injection_exercise.language_manager.inner']

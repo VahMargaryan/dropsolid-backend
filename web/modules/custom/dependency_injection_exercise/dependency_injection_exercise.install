@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the Dependency Injection Exercise module.
+ */
+
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
+/**
+ * Implements hook_install().
+ *
+ * Uses dependency injection to log exceptions.
+ */
+function dependency_injection_exercise_install() {
+  $menu_link = [
+    'title' => 'Photos',
+    'link' => ['uri' => 'internal:/dropsolid/example/photos'],
+    'menu_name' => 'main',
+    'expanded' => TRUE,
+  ];
+
+  try {
+    MenuLinkContent::create($menu_link)->save();
+  }
+  catch (\Exception $e) {
+    \Drupal::logger('dependency_injection_exercise')->error($e->getMessage());
+  }
+}

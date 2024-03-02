@@ -1,0 +1,29 @@
+<?php
+
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_mail_alter().
+ */
+function dependency_injection_exercise_mail_alter(&$message) {
+  // Redirect all mails to a specific address.
+  $message['to'] = 'nope@doesntexist.com';
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function dependency_injection_exercise_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  // Check if the current route is not an admin route.
+  if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
+    // Attempt to get the current page title.
+    $current_page_title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
+
+    if (!empty($current_page_title)) {
+      // Append the current page title to the breadcrumb.
+      $breadcrumb->addLink(Link::createFromRoute($current_page_title, '<none>'));
+    }
+  }
+}

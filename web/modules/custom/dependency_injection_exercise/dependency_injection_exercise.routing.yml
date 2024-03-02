@@ -1,0 +1,23 @@
+dependency_injection_exercise.rest_output_controller_dropsolid:
+  path: '/dropsolid'
+  defaults:
+    _controller: '\Drupal\dependency_injection_exercise\Controller\RestOutputController::showPhotos'
+    _title: 'Dropsolid'
+  requirements:
+    _permission: 'access content'
+
+dependency_injection_exercise.rest_output_controller_example:
+  path: '/dropsolid/example'
+  defaults:
+    _controller: '\Drupal\dependency_injection_exercise\Controller\RestOutputController::showPhotos'
+    _title: 'Example'
+  requirements:
+    _permission: 'access content'
+
+dependency_injection_exercise.rest_output_controller_photos:
+  path: '/dropsolid/example/photos'
+  defaults:
+    _controller: '\Drupal\dependency_injection_exercise\Controller\RestOutputController::showPhotos'
+    _title: 'Photos'
+  requirements:
+    _permission: 'access content'
